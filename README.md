@@ -33,11 +33,11 @@ docker-compose up -d --build
 ```screenshots/``` — все скриншоты
 
 📸 Скриншоты работы
-https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/1.png
-https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/2.png
-https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/3.png
-https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/4.png
-https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/5.png
-https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/6.png
+[1]https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/1.png
+[2]https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/2.png
+[3]https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/3.png
+[4]https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/4.png
+[5]https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/5.png
+[6]https://github.com/Lis4Game/nginx-lab/blob/main/Screenshots/6.png
 ✅ Результат
 Сервер в Docker успешно запущен, Nginx отдаёт мою HTML-страницу.
