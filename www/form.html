@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Подписка на журнал</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Оформление подписки на журнал</h1>
+
+    <form id="subscriptionForm" action="/process.php" method="POST">
+      
+      <label for="name">Ваше имя:</label>
+      <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+
+      <label for="duration">Срок подписки:</label>
+      <select id="duration" name="duration" required>
+        <option value="">-- Выберите срок --</option>
+        <option value="3">3 месяца</option>
+        <option value="6">6 месяцев</option>
+        <option value="12">12 месяцев</option>
+      </select>
+
+      <label for="magazine">Выберите журнал:</label>
+      <select id="magazine" name="magazine" required>
+        <option value="">-- Выберите журнал --</option>
+        <option value="science">Wep develonpent</option>
+        <option value="tech">Wew tevelopnent</option>
+        <option value="programming">Bew Tnempoleved</option>
+      </select>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" name="electronic" value="1">
+          Электронная версия
+        </label>
+      </div>
+
+      <label>Формат оплаты:</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="payment" value="card" required> Банковская карта
+        </label>
+        <label>
+          <input type="radio" name="payment" value="sbp"> СБП
+        </label>
+        <label>
+          <input type="radio" name="payment" value="cash"> Наличные при получении
+        </label>
+      </div>
+	  
+	  <button type="submit">Отправить</button>
+    </form>
+  </div>
+</body>
+</html>
