@@ -20,18 +20,22 @@
     </ul>
 
     <?php if (isset($_SESSION['api_data']) && empty($_SESSION['api_data']['error'])): ?>
-        <h3>Курсы:</h3>
+    <h3>Курсы:</h3>
+    <?php foreach ($_SESSION['api_data'] as $category => $courses): ?>
+        <?php if (!is_array($courses)) continue; // пропускаем не-массивы (например, метаданные) ?>
+        <h4><?= htmlspecialchars(ucfirst($category)) ?>:</h4>
         <ul>
-            <?php foreach (($_SESSION['api_data']['web'] ?? []) as $course): ?>
+            <?php foreach ($courses as $course): ?>
                 <li>
-                    <strong><?= htmlspecialchars($course['title'] ?? 'Без названия') ?></strong>  
+                    <strong><?= htmlspecialchars($course['name'] ?? 'Без названия') ?></strong>  
                     — <?= htmlspecialchars($course['description'] ?? '') ?>
                 </li>
             <?php endforeach; ?>
         </ul>
-    <?php elseif (isset($_SESSION['api_data']['error'])): ?>
-        <p style="color:orange;">Ошибка API: <?= htmlspecialchars($_SESSION['api_data']['error']) ?></p>
-    <?php endif; ?>
+    <?php endforeach; ?>
+<?php elseif (isset($_SESSION['api_data']['error'])): ?>
+    <p style="color:orange;">Ошибка API: <?= htmlspecialchars($_SESSION['api_data']['error']) ?></p>
+<?php endif; ?>
 
 <?php else: ?>
     <p>Данных пока нет.</p>
