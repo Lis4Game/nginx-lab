@@ -12,8 +12,11 @@
 <?php if(isset($_SESSION['name'])): ?>
     <p>Данные из сессии:</p>
     <ul>
-        <li>Имя: <?= $_SESSION['name'] ?></li>
-        <li>Email: <?= $_SESSION['age'] ?></li>
+        <li>Имя: <?= htmlspecialchars($_SESSION['name']) ?></li>
+        <li>Возраст: <?= htmlspecialchars($_SESSION['age']) ?></li>
+        <li>Курс: <?= htmlspecialchars($_SESSION['course']) ?></li>
+        <li>Сертификат нужен: <?= htmlspecialchars($_SESSION['electronic']) ?></li>
+        <li>Формат оплаты: <?= htmlspecialchars($_SESSION['payment']) ?></li>
     </ul>
 <?php else: ?>
     <p>Данных пока нет.</p>
