@@ -38,5 +38,11 @@ $_SESSION['course'] = $course;
 $_SESSION['electronic'] = $electronic;
 $_SESSION['payment'] = $payment;
 
+require_once 'ApiClient.php';
+$api = new ApiClient();
+$url = 'https://api.github.com/search/repositories?q=topic:php&sort=stars&per_page=5';
+$apiData = $api->request($url);
+$_SESSION['api_data'] = $apiData;
+
 header("Location: index.php");
 exit();
