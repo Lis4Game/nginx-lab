@@ -1,4 +1,6 @@
 <?php session_start(); ?>
+<?php require_once 'UserInfo.php'; ?>
+<?php $info = UserInfo::getInfo(); ?>
 
 <?php if(isset($_SESSION['errors'])): ?>
     <ul style="color:red;">
@@ -39,6 +41,15 @@
 
 <?php else: ?>
     <p>Данных пока нет.</p>
+<?php endif; ?>
+
+<h3>Информация о пользователе:</h3>
+<?php foreach ($info as $key => $val): ?>
+    <?= htmlspecialchars($key) ?>: <?= htmlspecialchars($val) ?><br>
+<?php endforeach; ?>
+
+<?php if (isset($_COOKIE['last_submission'])): ?>
+    Последняя отправка формы: <?= htmlspecialchars($_COOKIE['last_submission']) ?><br>
 <?php endif; ?>
 
 <a href="form.html">Заполнить форму</a> |
