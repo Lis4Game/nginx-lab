@@ -6,8 +6,10 @@ class ApiClient {
     private Client $client;
 
     public function __construct() {
-        $this->client = new Client();
-    }
+    $this->client = new Client([
+        'headers' => ['User-Agent' => 'PHP-App']
+    ]);
+}
 
     public function request(string $url): array {
         try {
