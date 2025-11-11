@@ -27,7 +27,7 @@
 
       <div class="checkbox-group">
         <label>
-          <input type="checkbox" name="electronic" value="1">
+          <input type="checkbox" name="certificate_needed" value="1"> <!-- Изменение -->
           Сертификат нужен
         </label>
       </div>
@@ -35,13 +35,13 @@
       <label>Формат оплаты:</label>
       <div class="radio-group">
         <label>
-          <input type="radio" name="payment" value="card" required> Банковская карта
+          <input type="radio" name="payment_form" value="card" required> <!-- Изменение -->
         </label>
         <label>
-          <input type="radio" name="payment" value="sbp"> СБП
+          <input type="radio" name="payment_form" value="sbp"> <!-- Изменение -->
         </label>
         <label>
-          <input type="radio" name="payment" value="cash"> Наличные при получении
+          <input type="radio" name="payment_form" value="cash"> <!-- Изменение -->
         </label>
       </div>
 	  
@@ -52,7 +52,6 @@
       document.getElementById("subscriptionForm").addEventListener("submit", function(e) {
         const name = document.querySelector('input[name="name"]').value;
         alert("Вы ввели имя: " + name);
-        // Форма отправится на process.php — НЕТ preventDefault!
       });
     </script>
   </div>
