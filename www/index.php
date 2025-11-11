@@ -1,6 +1,6 @@
 <?php session_start();
 $cacheFile = 'api_cache.json';
-$cacheTtl = 300; // 5 минут
+$cacheTtl = 300;
 $url = 'https://api.github.com/search/repositories?q=topic:php&sort=stars&per_page=5'; 
 if (file_exists($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
     $cached = json_decode(file_get_contents($cacheFile), true);
@@ -43,14 +43,14 @@ if (file_exists($cacheFile) && time() - filemtime($cacheFile) < $cacheTtl) {
         <li>Имя: <?= htmlspecialchars($_SESSION['name']) ?></li>
         <li>Возраст: <?= htmlspecialchars($_SESSION['age']) ?></li>
         <li>Курс: <?= htmlspecialchars($_SESSION['course']) ?></li>
-        <li>Сертификат нужен: <?= htmlspecialchars($_SESSION['electronic']) ?></li>
-        <li>Формат оплаты: <?= htmlspecialchars($_SESSION['payment']) ?></li>
+        <li>Сертификат нужен: <?= htmlspecialchars($_SESSION['certificate_needed'] == 1 ? 'Да' : 'Нет') ?></li> 
+        <li>Формат оплаты: <?= htmlspecialchars($_SESSION['payment_form']) ?></li> 
     </ul>
 
     <?php if (isset($_SESSION['api_data']) && empty($_SESSION['api_data']['error'])): ?>
     <h3>Курсы:</h3>
     <?php foreach ($_SESSION['api_data'] as $category => $courses): ?>
-        <?php if (!is_array($courses)) continue; // пропускаем не-массивы (например, метаданные) ?>
+        <?php if (!is_array($courses)) continue;  ?>
         <h4><?= htmlspecialchars(ucfirst($category)) ?>:</h4>
         <ul>
             <?php foreach ($courses as $course): ?>
