@@ -30,7 +30,7 @@ class Student {
         $stmt = $this->pdo->prepare("DELETE FROM registrations WHERE id=?");
         $stmt->execute([$id]);
     }
-	//метод для шрафного задания qwq
+	//метод для шрафного задания для фильра 18+ qwq
 	public function getFiltered($minAge = 18) {
         $stmt = $this->pdo->prepare("
             SELECT * FROM registrations 
@@ -39,5 +39,11 @@ class Student {
         ");
         $stmt->execute([$minAge]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+	//метод для шрафного задания для кол-во записей qwq
+
+	    public function countAll() {
+        $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM registrations");
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
 }
