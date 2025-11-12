@@ -16,8 +16,8 @@ class Student {
         $stmt->execute([$name, $age, $course, $certificate_needed, $payment_form]);
     }
 
-    public function getAll() {
-        $stmt = $this->pdo->query("SELECT * FROM registrations ORDER BY id DESC");
+        public function getAll() {
+        $stmt = $this->pdo->query("SELECT * FROM registrations ORDER BY created_at DESC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

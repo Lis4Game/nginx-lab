@@ -33,3 +33,29 @@
 
 <a href="form.html">Заполнить форму</a> |
 <a href="view.php">Посмотреть все данные</a>
+
+<h2>Зарегистрированные пользователи:</h2>
+<ul>
+<?php
+require_once 'db.php';
+require_once 'Student.php';
+
+$student = new Student($pdo);
+$all = $student->getAll();
+
+if (empty($all)) {
+    echo '<li>Пока никто не зарегистрирован.</li>';
+} else {
+    foreach ($all as $row) {
+        echo '<li>';
+        echo htmlspecialchars($row['name']) . ', ';
+        echo (int)$row['age'] . ' лет, ';
+        echo 'курс: ' . htmlspecialchars($row['course']) . ', ';
+        echo 'сертификат: ' . ($row['certificate_needed'] ? 'Да' : 'Нет') . ', ';
+        echo 'оплата: ' . htmlspecialchars($row['payment_form']) . ', ';
+        echo 'дата: ' . date('d.m.Y H:i:s', strtotime($row['created_at']));
+        echo '</li>';
+    }
+}
+?>
+</ul>
