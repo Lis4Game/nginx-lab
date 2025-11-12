@@ -1,4 +1,15 @@
 services:
+  web:
+    image: nginx:alpine
+    container_name: lab5_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
   php:
     build: .
     container_name: lab5_php

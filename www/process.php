@@ -20,7 +20,7 @@ if (empty($age)) {
     $errors[] = "Укажите настоящий возраст (1–120)";
 }
 if (empty($course)) $errors[] = "Выберите курс";
-if (empty($payment)) $errors[] = "Выберите способ оплаты";
+if (empty($payment_form)) $errors[] = "Выберите способ оплаты";
 
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
@@ -42,12 +42,6 @@ $_SESSION['certificate_needed'] = $certificate_needed;
 $_SESSION['payment_form'] = $payment_form;
 
 $_SESSION['success'] = "Регистрация прошла успешно!";
-
-require_once 'ApiClient.php';
-$api = new ApiClient();
-$url = 'https://api.github.com/search/repositories?q=topic:php&sort=stars&per_page=5';
-$apiData = $api->request($url);
-$_SESSION['api_data'] = $apiData;
 
 header("Location: index.php");
 exit();
