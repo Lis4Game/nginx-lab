@@ -30,4 +30,14 @@ class Student {
         $stmt = $this->pdo->prepare("DELETE FROM registrations WHERE id=?");
         $stmt->execute([$id]);
     }
+	//метод для шрафного задания qwq
+	public function getFiltered($minAge = 18) {
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM registrations 
+            WHERE age > ? 
+            ORDER BY created_at DESC
+        ");
+        $stmt->execute([$minAge]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

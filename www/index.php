@@ -59,3 +59,25 @@ if (empty($all)) {
 }
 ?>
 </ul>
+
+<h2>Только старше 18 лет:</h2>
+<ul>
+<?php
+$filtered = $student->getFiltered(18);
+
+if (empty($filtered)) {
+    echo '<li>Нет пользователей старше 18 лет.</li>';
+} else {
+    foreach ($filtered as $row) {
+        echo '<li>';
+        echo htmlspecialchars($row['name']) . ', ';
+        echo (int)$row['age'] . ' лет, ';
+        echo 'курс: ' . htmlspecialchars($row['course']) . ', ';
+        echo 'сертификат: ' . ($row['certificate_needed'] ? 'Да' : 'Нет') . ', ';
+        echo 'оплата: ' . htmlspecialchars($row['payment_form']) . ', ';
+        echo 'дата: ' . date('d.m.Y H:i:s', strtotime($row['created_at']));
+        echo '</li>';
+    }
+}
+?>
+</ul>
