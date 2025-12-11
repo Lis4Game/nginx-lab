@@ -1,16 +1,12 @@
-<?php
-
+﻿<?php
 namespace App\Helpers;
-
 use GuzzleHttp\Client;
-
-class ClientFactory
-{
-    public static function make(string $baseUri): Client
-    {
+class ClientFactory {
+    public static function make(string $baseUri): Client {
         return new Client([
             'base_uri' => $baseUri,
-            'timeout'  => 5.0,
+            'timeout' => 10.0,
+            'http_errors' => false
         ]);
     }
 }

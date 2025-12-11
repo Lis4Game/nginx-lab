@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use App\Helpers\ClientFactory;
@@ -10,23 +9,27 @@ class ElasticExample
 
     public function __construct()
     {
-        $this->client = ClientFactory::make('http://localhost:9200/');
+        $this->client = ClientFactory::make('http://elasticsearch:9200/');
     }
 
-    public function indexDocument($index, $id, $data)
+    public function indexDocument(string $index, string $id, array $data): bool
     {
         $response = $this->client->put("$index/_doc/$id", [
-            'json' => $data
+            'json' => $data,
+            'headers' => ['Content-Type' => 'application/json']
         ]);
-        return $response->getBody()->getContents();
+        return $response->getStatusCode() === 201;
     }
 
-    public function search($index, $query)
+    public function search(string $index, string $field, string $value): array
     {
+        $body = ['query' => ['match' => [$field => $value]]];
         $response = $this->client->get("$index/_search", [
-            'json' => ['query' => ['match' => $query]]
+            'json' => $body,
+            'headers' => ['Content-Type' => 'application/json']
         ]);
-        return $response->getBody()->getContents();
+        return ($response->getStatusCode() === 200)
+            ? json_decode($response->getBody(), true)
+            : [];
     }
 }
-

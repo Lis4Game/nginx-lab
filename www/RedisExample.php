@@ -1,27 +1,21 @@
 <?php
-
 namespace App;
-
 use App\Helpers\ClientFactory;
-
-class RedisExample
-{
+class RedisExample {
     private $client;
-
-    public function __construct()
-    {
-        $this->client = ClientFactory::make('http://localhost:7379/'); // redis-commander proxy
+    public function __construct() {
+         $this->client = ClientFactory::make('http://redis-commander:8081/');
     }
-
-    public function setValue($key, $value)
-    {
-        $response = $this->client->get("SET/$key/$value");
-        return $response->getBody()->getContents();
+    public function setValue(string $key, string $value): bool {
+        $response = $this->client->get("api/key/local/$key", [
+            'query' => ['action' => 'set', 'value' => $value]
+        ]);
+        return $response->getStatusCode() === 200;
     }
-
-    public function getValue($key)
-    {
-        $response = $this->client->get("GET/$key");
-        return $response->getBody()->getContents();
+    public function getValue(string $key): ?string {
+        $response = $this->client->get("api/key/local/$key");
+        return ($response->getStatusCode() === 200) 
+            ? json_decode($response->getBody(), true)['value'] ?? null
+            : null;
     }
 }

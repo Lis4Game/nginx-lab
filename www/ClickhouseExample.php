@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use App\Helpers\ClientFactory;
@@ -10,13 +9,14 @@ class ClickhouseExample
 
     public function __construct()
     {
-        $this->client = ClientFactory::make('http://localhost:8123/');
+        $this->client = ClientFactory::make('http://clickhouse:8123/');
     }
 
-    public function query($sql)
+    public function execute(string $sql): string
     {
         $response = $this->client->post('', [
-            'body' => $sql
+            'body' => $sql,
+            'headers' => ['Content-Type' => 'text/plain']
         ]);
         return $response->getBody()->getContents();
     }
