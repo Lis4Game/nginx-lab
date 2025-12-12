@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>API регистрации студента</title>
+    <style>
+        #apiResponse {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 15px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+            display: none;
+        }
+        .success { border-left: 3px solid green; padding-left: 8px; }
+        .error { border-left: 3px solid red; padding-left: 8px; }
+    </style>
+</head>
+<body>
+
+<h1>📨 API регистрации студента</h1>
+
+<p>
+    <a href="index.php">← На главную</a> |
+    <a href="form.html">📝 Веб-форма</a>
+</p>
+
+<h2>🔧 Тестирование API регистрации</h2>
+<p>Отправка данных студента через API (аналог формы, но напрямую в обработчик).</p>
+
+<form id="apiForm">
+    <p>
+        <label>👤 Имя:<br>
+        <input type="text" name="name" value="Тестовый Студент" required>
+        </label>
+    </p>
+
+    <p>
+        <label>🔢 Возраст:<br>
+        <input type="number" name="age" min="14" max="100" value="20" required>
+        </label>
+    </p>
+
+    <p>
+        <label>🎓 Курс:<br>
+        <input type="text" name="course" value="Фронтенд-разработка" required>
+        </label>
+    </p>
+
+    <p>
+        <label>
+            <input type="checkbox" name="certificate_needed" value="1" checked> 📜 Нужен сертификат?
+        </label>
+    </p>
+
+    <p>
+        💳 Формат оплаты:<br>
+        <label><input type="radio" name="payment_form" value="online" checked> Онлайн</label><br>
+        <label><input type="radio" name="payment_form" value="cash"> Наличные</label><br>
+        <label><input type="radio" name="payment_form" value="invoice"> Счёт для юрлица</label>
+    </p>
+
+    <p>
+        <button type="submit">📨 Отправить через API</button>
+    </p>
+</form>
+
+<div id="apiResponse"></div>
+
+<h3>🎯 Использование API</h3>
+<p><strong>Endpoint:</strong> POST /send.php</p>
+<p><strong>Параметры:</strong></p>
+<ul>
+    <li><code>name</code> — Имя студента</li>
+    <li><code>age</code> — Возраст (число)</li>
+    <li><code>course</code> — Название курса</li>
+    <li><code>certificate_needed</code> — 1 если нужен сертификат, иначе не передавать или 0</li>
+    <li><code>payment_form</code> — Формат оплаты: online / cash / invoice</li>
+</ul>
+
+<h4>📝 Пример curl запроса:</h4>
+<code>
+curl -X POST http://localhost/send.php \<br>
+  -d "name=API Студент&age=22&course=Backend&certificate_needed=1&payment_form=online"
+</code>
+
+<script>
+document.getElementById('apiForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const responseDiv = document.getElementById('apiResponse');
+
+    responseDiv.style.display = 'block';
+    responseDiv.className = '';
+    responseDiv.textContent = '⏳ Отправка...';
+
+    fetch('send.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            responseDiv.className = 'success';
+            responseDiv.textContent = '✅ ' + data.message + '\n\n📊 Данные:\n' + JSON.stringify(data.data, null, 2);
+        } else {
+            responseDiv.className = 'error';
+            responseDiv.textContent = '❌ ' + data.message;
+        }
+    })
+    .catch(error => {
+        responseDiv.className = 'error';
+        responseDiv.textContent = '❌ Ошибка сети: ' + error.message;
+    });
+});
+</script>
+
+</body>
+</html>
